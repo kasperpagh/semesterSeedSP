@@ -64,6 +64,10 @@
     </uib-accordion-group>
 
     <uib-accordion-group heading="Security Features in the Seed" >
+      <h3>Setting up the Database</h3>
+       <p>This version of the seed requires a database. Create a database and change persistence.xml to reflect your database, password etc.</p>
+       <p>If you create a new persistence.xml, which often makes sence, make sure to use the same name, and include the "extra" persisten unit meant for OPENSHIFT</p> 
+       <p>When this is done, your project should be ready for OPENSHIFT deployment without any problems</p>
       <h3>Test Users: (logon with these credentials to test authentication)</h3>
       <p>The Backend supports whatever roles you come up with. Out of the box the front-end only handles the roles "User" and "Admin". Adding more is however simple</p>
       <ul style="font-size: large">
@@ -71,7 +75,9 @@
         <li><b style="display: inline-block;width:7em;">Admin:</b>username = admin, password = test</li>
         <li><b style="display: inline-block;width:7em;">User+Admin:</b>username = user_admin, password = test</li>
       </ul>
+      <h4 style="color: red">MAKE SURE to remove the part that sets up test users in the class DeplymentConfiguration. Either manually, or via the flag in web.xml for a REAL system</h4>
       <h3>Using the Security Features in this seed - <em>Server:</em></h3>
+     
       <p>Decorate your REST classes and or methods with theese annotations: <em>@PermitAll</em> <em>@DenyAll</em> <em>@RolesAllowed</em>
       <p>See the section Securing RESTful Web Services Using Annotations here: <a href="http://docs.oracle.com/cd/E24329_01/web.1211/e24983/secure.htm#RESTF256">Securing RESTful Web Services</a>
       <P>See The server package <b>rest</b> provides examples of services using both the <em>User</em> and <em>Admin</em> Roles</p>
