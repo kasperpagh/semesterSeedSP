@@ -119,8 +119,8 @@ angular.module('myApp.security', [])
             },
             responseError: function (rejection) {
               var err = rejection.data;
-              if (typeof err.error === 'undefined' || typeof err.error.code === 'undefined') {
-                return rejection;
+              if (typeof err.error === 'undefined' || typeof err.error.message === 'undefined' || typeof err.error.code === 'undefined') {
+                 return $q.reject(rejection);
               }
               $rootScope.error = err.error.code + ": ";
 
