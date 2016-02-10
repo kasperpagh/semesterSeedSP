@@ -11,6 +11,7 @@ import static com.jayway.restassured.RestAssured.defaultParser;
 import static com.jayway.restassured.RestAssured.given;
 import com.jayway.restassured.parsing.Parser;
 import static com.jayway.restassured.path.json.JsonPath.from;
+import deploy.DeploymentConfiguration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -39,13 +40,21 @@ public class BackendTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        //Make the Jetty instance run on port 8082
         server = new Server(8082);
         ServletHolder servletHolder = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
         servletHolder.setInitParameter("javax.ws.rs.Application", ApplicationConfig.class.getName());
+        //The contextHandler is equivalent to web.xml and annotations
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        contextHandler.addEventListener(new DeploymentConfiguration());
+        //Tells the program not to make the testUsers(done through the script instead), and defines what PU to take.
+        contextHandler.setInitParameter("makeTestUsers", "false");
+        contextHandler.setInitParameter("testEnv", "true");
+//        Tells the server to start serving from / and to take all the configuration from servletHolder and place the servlets at /api/*
         contextHandler.setContextPath("/");
         contextHandler.addServlet(servletHolder, "/api/*");
         server.setHandler(contextHandler);
+//        start the server
         server.start();
     }
 

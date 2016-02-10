@@ -25,6 +25,10 @@ public class DeploymentConfiguration implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
+      //If we are testing, then this:
+     if(sce.getServletContext().getInitParameter("testEnv")!=null){
+         PU_NAME="PU_TEST";
+     }
     Map<String, String> env = System.getenv();
     //If we are running in the OPENSHIFT environment change the pu-name 
     if (env.keySet().contains("OPENSHIFT_MYSQL_DB_HOST")) {

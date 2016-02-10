@@ -28,4 +28,21 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="deploy"/>
     </properties>
   </persistence-unit>
+ <!--Persistence unit for your test database. Populate what you want to have in your DB through the addUsers.sql script-->
+  <persistence-unit name="PU_TEST" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entity.User</class>
+    <class>entity.Role</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+<!--       REPLACE ALL THIS WITH INFO FOR YOUR OWN DB -->
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="test"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.sql-load-script-source" value="scripts/addUsers.sql"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
+    </properties>
+  </persistence-unit>
 </persistence>
