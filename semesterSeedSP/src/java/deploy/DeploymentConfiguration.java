@@ -48,13 +48,12 @@ public class DeploymentConfiguration implements ServletContextListener {
       Role userRole = new Role("User");
       Role adminRole = new Role("Admin");
 
-      User user = new User("user", PasswordHash.createHash("test"));
-      User admin = new User("admin", PasswordHash.createHash("test"));
-      User both = new User("user_admin", PasswordHash.createHash("test"));
+      User user = new User("Peter", PasswordHash.createHash("test"));
+      User admin = new User("Anne", PasswordHash.createHash("test"));
+
+      
       user.AddRole(userRole);
       admin.AddRole(adminRole);
-      both.AddRole(userRole);
-      both.AddRole(adminRole);
 
       try {
         em.getTransaction().begin();
@@ -63,7 +62,7 @@ public class DeploymentConfiguration implements ServletContextListener {
 
         em.persist(user);
         em.persist(admin);
-        em.persist(both);
+
         em.getTransaction().commit();
       } finally {
         em.close();

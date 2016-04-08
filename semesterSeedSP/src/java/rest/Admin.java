@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("demoadmin")
+@Path("allusers")
 @RolesAllowed("Admin")
 public class Admin {
   
@@ -16,8 +16,7 @@ public class Admin {
   @Produces(MediaType.APPLICATION_JSON)
   public String getSomething(){
     String now = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
-    return "{\"message\" : \"This message was delivered via a REST call accesible by only authenticated ADMINS\",\n"
-            +"\"serverTime\": \""+now +"\"}"; 
+    return "[{\"name\": \"Jan\",\"mail\":\"jan@a.dk\"},{\"name\":\"Ann\",\"mail\":\"ann@a.dk\"},{\"name\":\"ib\",\"mail\":\"ib@a.dk\"}]"; 
   }
  
 }

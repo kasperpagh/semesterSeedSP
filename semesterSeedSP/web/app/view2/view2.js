@@ -12,9 +12,16 @@ angular.module('myApp.view2', ['ngRoute'])
         .controller('View2Ctrl', function ($http, $scope) {
           $http({
             method: 'GET',
-            url: 'api/demouser'
+            url: 'api/footballclubs'
           }).then(function successCallback(res) {
-            $scope.data = res.data.message;
+            $scope.data = res.data.url;
+            $scope.urls = [];
+            for(var i =0; i < res.data.length; i++)
+            {
+                $scope.urls.push(res.data[i]);
+            }
+            console.log("hej llama: " + res.data[1].url);
+            
           }, function errorCallback(res) {
             $scope.error = res.status + ": "+ res.data.statusText;
           });
